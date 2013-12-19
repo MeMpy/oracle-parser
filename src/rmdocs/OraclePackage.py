@@ -4,8 +4,8 @@ Created on 01/nov/2013
 
 @author: ross
 '''
-from coge.rmdocs.RmDoc import IRmDoc
-from coge.rmdocs.readers import OraclePackageReader
+from rmdocs.RmDoc import IRmDoc
+from rmdocs.readers import OraclePackageReader
 import os
 import re
 
