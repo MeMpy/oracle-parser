@@ -6,7 +6,7 @@ Created on 01/nov/2013
 '''
 import importlib
 
-PACKAGE_RMDOC = 'coge.rmdocs.{0}' #TODO get it automatically
+PACKAGE_RMDOC = 'rmdocs.{0}' #TODO get it automatically
 NOT_IMPLEMENTED_MSG = 'It must be implemented in the subclass'
 
 
