@@ -16,4 +16,4 @@ In the second you can add the parsers. The parses are python modules which must 
 
 This is the method that performs the file parsing and it must return a data object that can be read and processed by the constructor of the correspondent model.
 
-In the RmDoc module it will be a single method which glow up all together.
+In the RmDoc module it will be a single method which glue up all together.
