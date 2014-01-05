@@ -1,4 +1,4 @@
-#Rmdoc
+#Readers Mapping Documents
 
 ----------
 
@@ -7,36 +7,13 @@
 ----------
 
 
-The rmdocs are simply classes. These classes can implement or not an interface called IRmDoc that provides some capability to integrate the classes into the library
+The ReadersMappingDocuments (Rmdocs) is a Framework which try to make easy adding new files parsers. 
+In it you can find two package: *models and *parsers. 
+In the first you can add the classes which represent the file read. This classes will be called Doc (or RmDoc).
+In the second you can add the parsers. The parses are python modules which must contain a method called parse defined as follows:
 
-	class User(IRmDoc):
-        class Address(object):
-            class Phone():
-                
-                def __init__(self):
-                    self.prefix = '081'
-                    self.number = '123456'
-                    
-            def __init__(self, i):
-                self.street = "penny lane n. " + str(i)+" "
-                self.cod = "040404"
-                self.phone = self.Phone()
-        
-        def init_reader(self, path, reader_args):
-            pass
-        
-        def build_rmdoc(self, rmdoc_args):
-            pass
-        
-        def init(self):
-            self.__setattr__("name", "Monkey D.")
-            self.__setattr__("surname", "Rufy" )
-            self.__setattr__("address", self.Address(-1))
-            addresses = []
-            for i in range(0,10):
-                addresses.append(self.Address(i))
-            self.__setattr__("addresses", addresses) 
+	def parse(file, *args, **kwargs):
 
-Here we can use a class `User` that represents an user with name, surname, addresses. Each `Address` has street, code and phone, each `Phone` has prefix and number.
+This is the method that performs the file parsing and it must return a data object that can be read and processed by the constructor of the correspondent model.
 
-*NB: We have hardcoded the attributes value but normally they are retrieved from external file source using * `init_reader` *and* `build_rmdoc`
+In the RmDoc module it will be a single method which glow up all together.
