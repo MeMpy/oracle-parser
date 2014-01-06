@@ -29,14 +29,11 @@ class OraclePackageDoc(IRmDoc):
                 self.sql_type = sqltype
                 self.inout_type = inoutType
             
-            def __unicode__(self):
+            def __str__(self):
                 return str(
                            str(self.param_name) + ' ' +
                            str(self.inout_type) + ':' + 
                            str(self.sql_type))
-              
-            def __str__(self):
-                return self.__unicode__()
                 
                                     
         def __init__(self, procName = None, index = None, headerComment = ""):
@@ -95,15 +92,12 @@ class OraclePackageDoc(IRmDoc):
             inputParams = [x for x in self.procParams.values() if "IN" in x[1].upper()]
             return len(inputParams)
         
-        def __unicode__(self):
+        def __str__(self):
             return str(
                        str(self.identifier) + os.linesep +
                        str(self.procStartIndex) + os.linesep + 
                        str(self.procName) + os.linesep 
-                       + str(map(str,self.procParams)))
-        
-        def __str__(self):
-            return self.__unicode__()
+                       + str(map(str,self.procParams)))                
                                 
     
     def __init__(self, procs_data):
@@ -235,11 +229,8 @@ class OraclePackageDoc(IRmDoc):
         else:
             raise Exception("proceduresNames isn't a list")
         
-    def __unicode__(self):
+    def __str__(self):
         result = [self.packageName]
         for p in self.procedures:
             result.append(str(p))
-        return os.linesep.join(result)
-    
-    def __str__(self):
-        return self.__unicode__()
+        return os.linesep.join(result)    
