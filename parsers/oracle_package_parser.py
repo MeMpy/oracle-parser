@@ -16,6 +16,8 @@ PTRN_START_FUNCTION_BLOCK = r'\s*FUNCTION'
 PTRN_END_PROC_FUNC_BLOCK_BRACKET = r'\)\s*\n'
 PTRN_END_PROC_FUNC_BLOCK_IS = r'\bIS\b'
 PTRN_END_PROC_FUNC_BLOCK_AS = r'\bAS\b'
+PTRN_PACKAGE = r'\s*CREATE OR REPLACE PACKAGE|\s*CREATE PACKAGE'
+
 
 SINGLE_WHITE_SPACE = ' '
 
@@ -80,6 +82,21 @@ def _check_is_in_body_block(line, isInBody):
     This isn't implemented in the default behavior
     """
     return False
+
+
+def _check_for_package_name(line):
+    """
+    If the line seems to 
+    CREATE OR REPLACE PACKAGE BODY <package_name> AS
+    returns the package_name,
+    else return None
+    
+    """
+    if re.search(PTRN_PACKAGE, line):
+        #We are in the correct line. We need to extract the package_name
+        words = line.split()
+        return words[-2] #The package_name must be the second-last word (before AS/IS)
+    
 
 def _build_comment_block(line, index):
     """
@@ -164,6 +181,9 @@ def parse(f, process_body = False):
             procComment = _build_comment_block(line, count)
             isInBody, isInSignature = False, False
         else:
+            #check for package name
+            if not package_name:
+                package_name = _check_for_package_name(line)
             #We aren't in a comment
             if not isInBody:
                 #Check and Eventually Process Signature
@@ -206,4 +226,4 @@ def parse(f, process_body = False):
                     procBody = str()
                     procs.append(procedureParsed)
     #end for                    
-    return procs
+    return package_name, procs
